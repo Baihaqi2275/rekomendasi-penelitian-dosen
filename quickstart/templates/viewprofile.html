@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lecturer.name }} - SIREDO-TUS{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 text-center mb-4 mb-lg-0 border-end text-center">
+                    <img src="/static/assets/img/person.png" alt="avatar" class="rounded-circle img-fluid mb-3" style="width: 150px;">
+                    <h5 class="my-3">{{ lecturer.name }}</h5>
+                    <p class="text-muted mb-1">Lecturer</p>
+                    <p class="text-muted mb-2">{{ lecturer.name_dept or 'Department Not Set' }}</p>
+                    <p class="text-muted mb-1">Telkom University Surabaya</p>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>Full Name</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.name }}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>Code</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.code_lec or 'Not Available' }}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>NIP</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.nip or 'Not Available' }}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>NIDN</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.nidn or 'Not Available' }}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>Email</strong></div>
+                        <div class="col-sm-8 text-muted">
+                            {% if lecturer.email %}
+                                <a href="mailto:{{ lecturer.email }}">{{ lecturer.email }}</a>
+                            {% else %}
+                                Not Available
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>Department</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.name_dept or 'Not Available' }}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2">
+                        <div class="col-sm-4"><strong>Expertise</strong></div>
+                        <div class="col-sm-8 text-muted">{{ lecturer.expertise or 'Not Available' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header"><h4>Topic Modelling</h4></div>
+        <div class="card-body">
+            
+            <div id="topicsId" style="display: block; margin-bottom: 20px;">
+                {% if topics_id %}
+                    <h5>Main Research Topics (ID):</h5>
+                    <div>
+                        {% for topic in topics_id %}
+                            <span class="badge bg-info text-dark me-1 mb-1" style="font-size: 0.9rem;">Topic {{ loop.index }}: {{ topic }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="topicsEn" style="display: none; margin-bottom: 20px;">
+                {% if topics_en %}
+                    <h5>Main Research Topics (EN):</h5>
+                    <div>
+                        {% for topic in topics_en %}
+                            <span class="badge bg-info text-dark me-1 mb-1" style="font-size: 0.9rem;">Topic {{ loop.index }}: {{ topic }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="lda-toolbar">
+                <button class="btn btn-primary mx-2" id="btnId" onclick="showLda('id')">Topic Modelling (ID)</button>
+                <button class="btn btn-secondary mx-2" id="btnEn" onclick="showLda('en')">Topic Modelling (EN)</button>
+            </div>
+            <div id="ldaVizId" class="lda-viz">
+                {% if lda_id_path %}
+                    <div class="container-fluid px-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ url_for('static', filename=lda_id_path) }}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center text-muted">Not Found</p>
+                {% endif %}
+            </div>
+            <div id="ldaVizEn" class="lda-viz" style="display:none;">
+                {% if lda_en_path %}
+                    <div class="container-fluid px-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ url_for('static', filename=lda_en_path) }}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center text-muted">Not Found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Publications</h4>
+            {% if total_publications %}
+                <span class="badge bg-primary rounded-pill">{{ total_publications }} Publications</span>
+            {% else %}
+                <span class="badge bg-secondary rounded-pill">0 Publications</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            {% if publications %}
+                <ul class="list-group list-group-flush" id="publication-list">
+                    {% for publication in publications %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="me-3">
+                                <div class="fw-semibold">{{ publication.title }}</div>
+                                <small class="text-muted">Year: {{ publication.year or '-' }}</small>
+                            </div>
+                            {% if publication.linkURL %}
+                                <a class="btn btn-outline-primary btn-sm" href="{{ publication.linkURL }}" target="_blank" rel="noopener noreferrer">
+                                    View
+                                </a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-center text-muted">No publications found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function showLda(lang) {
+        document.getElementById('ldaVizId').style.display = 'none';
+        document.getElementById('ldaVizEn').style.display = 'none';
+
+        document.getElementById('btnId').classList.remove('btn-primary');
+        document.getElementById('btnId').classList.add('btn-secondary');
+        document.getElementById('btnEn').classList.remove('btn-primary');
+        document.getElementById('btnEn').classList.add('btn-secondary');
+
+        if (lang === 'id') {
+            document.getElementById('ldaVizId').style.display = 'block';
+            if(document.getElementById('topicsId')) document.getElementById('topicsId').style.display = 'block';
+            if(document.getElementById('topicsEn')) document.getElementById('topicsEn').style.display = 'none';
+            document.getElementById('btnId').classList.remove('btn-secondary');
+            document.getElementById('btnId').classList.add('btn-primary');
+        } else {
+            document.getElementById('ldaVizEn').style.display = 'block';
+            if(document.getElementById('topicsId')) document.getElementById('topicsId').style.display = 'none';
+            if(document.getElementById('topicsEn')) document.getElementById('topicsEn').style.display = 'block';
+            document.getElementById('btnEn').classList.remove('btn-secondary');
+            document.getElementById('btnEn').classList.add('btn-primary');
+        }
+    }
+
+    // Show Indonesian by default on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        showLda('id');
+    });
+</script>
+{% endblock %}

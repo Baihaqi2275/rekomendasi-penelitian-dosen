@@ -1,0 +1,5 @@
+Model Hybrid (ModelNBC.pkl) berhasil diload
+Model One-vs-Rest (Model-NBC-Multiclass.pkl) berhasil diload
+Model sudah fit
+ * Serving Flask app 'app'
+ * Debug mode: off

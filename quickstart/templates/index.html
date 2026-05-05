@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage - SIREDO-TUS{% endblock %}
+
+{% block navbar_class %}navbar-dark bg-transparent position-absolute w-100 z-3{% endblock %}
+{% block navbar_style %}style="top: 0; left: 0;"{% endblock %}
+{% block btn_settings_class %}btn-transparent{% endblock %}
+{% block btn_settings_style %}background-color: transparent; border-color: transparent;{% endblock %}
+
+{% block content %}
+    <style>
+        header.masthead {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-text {
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+        @media (max-width: 767.98px) {
+            header.masthead {
+                padding-top: 8rem !important;
+                padding-bottom: 5rem !important;
+            }
+        }
+    </style>
+    <header class="masthead">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+                        <div class="text-center text-white hero-text">
+                            <h2 class="mb-1 fw-bold">Welcome to SPARRING</h2>
+                            <h5 class="mb-4">Sistem Partner Research Matching</h5>
+                            <form class="form-search masthead-search" action="/search" method="GET">
+                                <div class="row">
+                                    <div class="col">
+                                        <input 
+                      
+                                         class="form-control form-control-lg" 
+                                            name="keyword"
+                                            id="text" 
+                                            type="text" 
+                                            placeholder="type here.. example: Papua, Pendidikan, Autis" 
+                                            aria-label="Sparring"
+                                            required 
+                                        />
+                                        
+                                    </div>
+                                    <div class="col-auto mt-3 mt-md-0">
+                                        <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Search</button>
+                                    </div>
+                                </div>
+                                <!-- ini ntuk megganti dibawah search-->
+                                <div class="advancesearch">
+                                    <p></p>
+                                </div>
+
+                                <!-- Submit success message-->
+                                <div class="d-none" id="submitSuccessMessage">
+                                    <div class="text-center mb-3">
+                                        <div class="fw-bolder">Form submission successful!</div>
+                                        <p>To activate this form, sign up at</p>
+                                        <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">
+                                            https://startbootstrap.com/solution/contact-forms
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Submit error message-->
+                                <div class="d-none" id="submitErrorMessage">
+                                    <div class="text-center text-danger mb-3">Error sending message!</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Topics column (always visible) with University intro on the left -->
+        <section class="topics-section bg-light py-4">
+            <div class="container">
+                <div class="row">
+                    <!-- Full width: University intro -->
+                    <div class="col-12 mb-3">
+    <div class="card border-0 university-intro" style="box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 12px; border-top: 5px solid #E32934 !important; overflow: hidden;">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center">
+                <!-- Description Section -->
+                <div class="col-lg-8 pe-lg-5 mb-4 mb-lg-0" style="text-align: justify;">
+                    <h3 class="fw-bold mb-3" style="color: #2c3e50;">Telkom University Surabaya</h3>
+                    <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Telkom University Surabaya (Tel-U Surabaya)</strong> adalah institusi pendidikan tinggi berstandar internasional yang berfokus pada pengembangan teknologi, inovasi, dan bisnis digital. Berkomitmen untuk mencetak generasi unggul, kampus ini memadukan kurikulum berbasis industri dengan penelitian lintas disiplin yang relevan dengan kebutuhan global.
+                    </p>
+                    <p class="text-muted mb-0" style="font-size: 1.05rem; line-height: 1.7;">
+                        Melalui platform <strong>SIREDO (Sistem Rekomendasi Penelitian Dosen)</strong>, kami memfasilitasi sinergi antara akademisi, peneliti, dan mitra industri. Platform inovatif ini dirancang untuk menciptakan peluang kolaborasi strategis, memperluas pendanaan riset, serta menghasilkan inovasi teknologi yang berdampak nyata bagi masyarakat dengan berlandaskan nilai <em>Harmony, Excellence, and Integrity</em>.
+                    </p>
+                </div>
+                
+                <!-- Stats Section -->
+                <div class="col-lg-4">
+                    <div class="p-4 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                        <h6 class="text-uppercase fw-bold mb-4" style="color: #E32934; letter-spacing: 1px; font-size: 0.85rem;">University Highlights</h6>
+                        
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-shrink-0 bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px; color: #E32934;">
+                                <i class="bi bi-building fs-5"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold" style="color: #2c3e50;">Founded</h6>
+                                <span class="text-muted small">2018</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-shrink-0 bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px; color: #E32934;">
+                                <i class="bi bi-lightbulb fs-5"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold" style="color: #2c3e50;">Research Focus</h6>
+                                <span class="text-muted small">Technology & Innovation</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px; color: #E32934;">
+                                <i class="bi bi-people fs-5"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold" style="color: #2c3e50;">Collaboration</h6>
+                                <span class="text-muted small">Academia & Industry</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacer so footer is not overlapped by content -->
+        <div class="py-4"></div>
+
+{% endblock %}

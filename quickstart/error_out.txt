@@ -1,0 +1,16 @@
+TypeError('sequence item 0: expected a bytes-like object, str found')
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\MUHAMMAD BAIHAQI\Downloads\Web-Rekomendasi-Penelitian-Dosen-main\Web-Rekomendasi-Penelitian-Dosen-main\quickstart\generate_lda_vis.py", line 90, in main
+    _, topics_id = run_topic_modeling_pipeline(grouped["id"], out_path)
+  File "C:\Users\MUHAMMAD BAIHAQI\Downloads\Web-Rekomendasi-Penelitian-Dosen-main\Web-Rekomendasi-Penelitian-Dosen-main\quickstart\topic_modeling.py", line 139, in run_topic_modeling_pipeline
+    tokenized, _ = build_bigrams(tokenized)
+  File "C:\Users\MUHAMMAD BAIHAQI\Downloads\Web-Rekomendasi-Penelitian-Dosen-main\Web-Rekomendasi-Penelitian-Dosen-main\quickstart\topic_modeling.py", line 83, in build_bigrams
+    phrases = Phrases(tokenized_texts, min_count=min_count, threshold=threshold, delimiter=b"_")
+  File "C:\Users\MUHAMMAD BAIHAQI\AppData\Local\Programs\Python\Python310\lib\site-packages\gensim\models\phrases.py", line 569, in __init__
+    self.add_vocab(sentences)
+  File "C:\Users\MUHAMMAD BAIHAQI\AppData\Local\Programs\Python\Python310\lib\site-packages\gensim\models\phrases.py", line 648, in add_vocab
+    min_reduce, vocab, total_words = self._learn_vocab(
+  File "C:\Users\MUHAMMAD BAIHAQI\AppData\Local\Programs\Python\Python310\lib\site-packages\gensim\models\phrases.py", line 596, in _learn_vocab
+    joined_phrase_token = delimiter.join(phrase_tokens)
+TypeError: sequence item 0: expected a bytes-like object, str found
