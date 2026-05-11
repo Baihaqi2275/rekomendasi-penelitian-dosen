@@ -309,6 +309,10 @@
         const dataContainer = document.getElementById('jsData');
         const initialKeyword = dataContainer.dataset.keyword;
         const initialApproach = dataContainer.dataset.approach;
+        const personImageUrl = "{{ url_for('static', filename='assets/img/person.png') }}";
+        const recommendationApiUrl = "{{ url_for('api_rekomendasi') }}";
+        const searchPageUrl = "{{ url_for('search_page') }}";
+        const profileBaseUrl = "{{ url_for('view_profile', identifier='__IDENTIFIER__') }}";
         const cardContainer = document.getElementById('cardContainer');
         const statusMessage = document.getElementById('statusMessage');
 
@@ -354,7 +358,7 @@
             
             <div class="d-flex align-items-center gap-3 mb-4">
                 <div class="photo-wrapper">
-                    <img src="/static/assets/img/person.png" alt="${lecture}">
+                    <img src="${personImageUrl}" alt="${lecture}">
                 </div>
                 <div class="overflow-hidden">
                     <h5 class="fw-700 mb-0 text-dark text-truncate" style="font-size: 1.15rem;">${mainName}</h5>
@@ -383,7 +387,7 @@
                         <div class="score-large">${displayScore}<span style="font-size: 1rem; opacity: 0.5;">%</span></div>
                     </div>
                     <div class="col-6">
-                        <a href="/profile/${encodeURIComponent(code_lec || lecture)}" class="btn btn-view-profile w-100 d-flex align-items-center justify-content-center gap-2">
+                        <a href="${profileBaseUrl.replace('__IDENTIFIER__', encodeURIComponent(code_lec || lecture))}" class="btn btn-view-profile w-100 d-flex align-items-center justify-content-center gap-2">
                             View Profile <i class="bi bi-chevron-right"></i>
                         </a>
                     </div>
@@ -459,7 +463,7 @@
         async function fetchData() {
             if (!initialKeyword) return;
             try {
-                const r = await fetch('/rekomendasi', {
+                const r = await fetch(recommendationApiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ kata_kunci: initialKeyword, approach: initialApproach })
@@ -503,7 +507,7 @@
         document.getElementById('searchForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const kw = document.getElementById('keywordInput').value.trim();
-            window.location.href = `/search?keyword=${encodeURIComponent(kw)}&approach=${encodeURIComponent(initialApproach)}`;
+            window.location.href = `${searchPageUrl}?keyword=${encodeURIComponent(kw)}&approach=${encodeURIComponent(initialApproach)}`;
         });
 
         fetchData();
