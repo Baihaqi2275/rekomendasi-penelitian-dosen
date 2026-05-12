@@ -34,7 +34,7 @@ except Exception as e:
     print("Model belum fit:", e)
 
 # Koneksi database
-engine = create_engine("mysql+pymysql://root:@localhost/db_siredo?charset=utf8mb4")
+engine = create_engine("mysql+pymysql://root:@127.0.0.1/db_siredo?charset=utf8mb4")
 
 # Ambil data dosen
 df_lecturer = pd.read_sql(
