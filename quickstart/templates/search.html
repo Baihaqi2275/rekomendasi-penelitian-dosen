@@ -222,7 +222,7 @@
                         <input type="text" id="keywordInput"
                             class="form-control border-0 bg-transparent flex-grow-1 shadow-none py-3" name="keyword"
                             value="{{ keyword }}" placeholder="Enter research area...">
-                        <button type="submit" class="btn btn-danger rounded-pill px-4 fw-bold">
+                        <button type="submit" class="btn text-white rounded-pill px-4 fw-bold" style="background-color: #1c4c54; border-color: #1c4c54;">
                             Search
                         </button>
                     </div>
@@ -269,8 +269,8 @@
     <div class="results-stats">
         <div id="resultsOverviewRow" style="display: none; align-items: center; gap: 0.75rem;">
             <p class="mb-0 fw-700 text-dark" style="font-size: 1.1rem; letter-spacing: -0.5px;" id="resultsCountLabel">Searching...</p>
-            <span id="filteredCountBadge" class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3"
-                style="display: none; font-size: 0.75rem; font-weight: 700;"></span>
+            <span id="filteredCountBadge" class="badge rounded-pill px-3"
+                style="display: none; font-size: 0.75rem; font-weight: 700; background-color: rgba(28, 76, 84, 0.1); color: #1c4c54;"></span>
         </div>
         <div class="d-flex align-items-center">
             <span class="badge-engine">AI ENGINE: {{ approach|upper if approach else 'HYBRID' }}</span>
@@ -279,7 +279,7 @@
 
     <!-- Loading -->
     <div id="statusMessage" class="text-center py-5">
-        <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;" role="status text-danger"></div>
+        <div class="spinner-grow" style="width: 3rem; height: 3rem; color: #1c4c54;" role="status"></div>
         <p class="mt-4 text-muted fw-600">Ranking expertise profiles...</p>
     </div>
 
@@ -290,8 +290,8 @@
 
     <!-- Pagination -->
     <div class="text-center mt-5" id="paginationContainer" style="display: none;">
-        <button id="showMoreBtn" class="btn btn-outline-danger px-5 py-3 rounded-pill fw-800"
-            style="border-width: 2px;">Load More Recommendations</button>
+        <button id="showMoreBtn" class="btn px-5 py-3 rounded-pill fw-800"
+            style="border-width: 2px; color: #1c4c54; border-color: #1c4c54; background: transparent;">Load More Recommendations</button>
     </div>
 </div>
 
@@ -423,7 +423,7 @@
                         <p class="text-muted fw-500 mx-auto" style="max-width: 450px; font-size: 1.1rem; line-height: 1.6;">
                             We couldn't find any partners matching your selected filters. Try broadening your search or resetting the filters below.
                         </p>
-                        <button class="btn btn-outline-danger rounded-pill px-5 py-2 mt-4 fw-700 shadow-sm" style="border-width: 2.5px;" 
+                        <button class="btn rounded-pill px-5 py-2 mt-4 fw-700 shadow-sm" style="border-width: 2.5px; color: #1c4c54; border-color: #1c4c54; background: transparent;" 
                                 onclick="document.getElementById('deptFilter').value=''; document.getElementById('scoreFilter').value='0'; process();">
                             Reset All Filters
                         </button>
@@ -489,7 +489,7 @@
                                 Please try using more general keywords or different terms.
                             </p>
                             <div class="mt-5">
-                                <button onclick="document.getElementById('keywordInput').focus(); window.scrollTo({top: 0, behavior: 'smooth'});" class="btn btn-danger rounded-pill px-5 py-3 fw-800 shadow-sm" style="font-size: 1.1rem;">
+                                <button onclick="document.getElementById('keywordInput').focus(); window.scrollTo({top: 0, behavior: 'smooth'});" class="btn text-white rounded-pill px-5 py-3 fw-800 shadow-sm" style="background-color: #1c4c54; border-color: #1c4c54; font-size: 1.1rem;">
                                     Try Different Keyword
                                 </button>
                             </div>
@@ -507,7 +507,8 @@
         document.getElementById('searchForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const kw = document.getElementById('keywordInput').value.trim();
-            window.location.href = `${searchPageUrl}?keyword=${encodeURIComponent(kw)}&approach=${encodeURIComponent(initialApproach)}`;
+            const currentApproach = document.getElementById('approachSelect')?.value || initialApproach || 'hybrid';
+            window.location.href = `${searchPageUrl}?keyword=${encodeURIComponent(kw)}&approach=${encodeURIComponent(currentApproach)}`;
         });
 
         fetchData();

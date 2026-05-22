@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <nav class="navbar {% block navbar_class %}bg-danger{% endblock %}" {% block navbar_style %}{% endblock %} {% block navbar_theme %}data-bs-theme="dark"{% endblock %}>
+    <nav class="navbar {% block navbar_class %}{% endblock %}" {% block navbar_style %}style="background-color: #1c4c54;"{% endblock %} {% block navbar_theme %}data-bs-theme="dark"{% endblock %}>
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
                 <img src="{{ url_for('static', filename='assets/img/logonew.png') }}" alt="Telkom University logo" class="navbar-logo">
@@ -27,9 +27,9 @@
                 <a class="nav-link text-white p-0 m-0" href="{{ url_for('home') }}">Home</a>
                 <a class="nav-link text-white p-0 m-0" href="{{ url_for('lecturers_page') }}">Lecturers</a>
                 <button id="approachToggle" type="button"
-                    class="btn {% block btn_settings_class %}btn-danger{% endblock %} btn-sm d-flex align-items-center justify-content-center m-0"
+                    class="btn {% block btn_settings_class %}{% endblock %} btn-sm d-flex align-items-center justify-content-center m-0"
                     title="Pengaturan Pendekatan" aria-label="Pengaturan Pendekatan" aria-expanded="false"
-                    style="width:36px;height:36px;border-radius:50%;{% block btn_settings_style %}background-color:#dc3545;border-color:#dc3545;{% endblock %}color:#ffffff; align-self: center;">
+                    style="width:36px;height:36px;border-radius:50%;{% block btn_settings_style %}background-color:#1c4c54;border-color:#1c4c54;{% endblock %}color:#ffffff; align-self: center;">
                     <i class="bi-gear" style="pointer-events: none; color: #ffffff; font-size: 1rem; line-height: inherit; vertical-align: middle; display: inline-block; align-self: center;"></i>
                 </button>
                 <!-- Panel pengaturan pendekatan (dropdown) -->
@@ -88,6 +88,22 @@
                     if (!clickOnToggle && !clickInsidePanel) {
                         setPanelVisible(false);
                     }
+                });
+            }
+            
+            const approachSelect = document.getElementById('approachSelect');
+            if (approachSelect) {
+                // Set initial approach from URL if exists
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlApproach = urlParams.get('approach');
+                if (urlApproach) {
+                    approachSelect.value = urlApproach;
+                }
+                
+                // Update hidden approach inputs when select changes
+                approachSelect.addEventListener('change', function(e) {
+                    const val = e.target.value;
+                    document.querySelectorAll('input[name="approach"]').forEach(el => el.value = val);
                 });
             }
 
