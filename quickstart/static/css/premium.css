@@ -1,0 +1,279 @@
+/* premium.css - Modern UI Overhaul for SPARRING */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --glass-bg: rgba(25, 28, 36, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-primary: #8a2be2;
+    --accent-secondary: #00d2ff;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --bg-gradient: linear-gradient(135deg, #0d0e15 0%, #1a1c29 100%);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Navbar */
+.navbar {
+    background: rgba(13, 14, 21, 0.7) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand span, .nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-secondary) !important;
+}
+
+/* Animated Masthead Background */
+.masthead {
+    position: relative;
+    background: linear-gradient(-45deg, #130f40, #30336b, #130f40, #000000);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Add floating animated shapes */
+.masthead::before, .masthead::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    animation: float 10s infinite alternate ease-in-out;
+}
+
+.masthead::before {
+    width: 400px;
+    height: 400px;
+    background: rgba(138, 43, 226, 0.3);
+    top: -100px;
+    left: -100px;
+}
+
+.masthead::after {
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 210, 255, 0.3);
+    bottom: -50px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+.masthead .container {
+    z-index: 1;
+    position: relative;
+}
+
+/* Hero Typography */
+.hero-text h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #00d2ff, #8a2be2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-text h5 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+/* Premium Search Input */
+.masthead-search .form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.masthead-search .form-control:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+    outline: none;
+}
+
+.masthead-search .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Button Styling */
+.btn-primary, .btn-outline-success {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    border: none;
+    border-radius: 30px;
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.btn-primary:hover, .btn-outline-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
+    background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+}
+
+/* Glassmorphism Cards */
+.card, .approachPanel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    color: var(--text-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-title, .card-text {
+    color: var(--text-primary) !important;
+}
+
+.card-text.small {
+    color: var(--text-secondary) !important;
+}
+
+.card hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Page Content Padding */
+.page-content {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    min-height: calc(100vh - 150px);
+}
+
+/* Forms inside cards */
+.form-select, .form-control {
+    background-color: rgba(0,0,0,0.2) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: white !important;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--accent-secondary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 210, 255, 0.25) !important;
+}
+
+.form-select option {
+    background: #1a1c29;
+    color: white;
+}
+
+/* Badges */
+.badge.bg-success {
+    background: linear-gradient(45deg, #00b09b, #96c93d) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Pagination / See More Button */
+#showMoreBtn {
+    border-radius: 30px;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+}
+
+/* Profile specific */
+.profile-img {
+    border: 4px solid rgba(255,255,255,0.1);
+    padding: 5px;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* Topics list on home */
+.topic-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.topic-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: var(--accent-secondary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Table styling for publications */
+.table {
+    color: var(--text-primary);
+}
+.table thead th {
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    color: var(--accent-secondary);
+    font-weight: 600;
+}
+.table tbody td {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-secondary);
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: var(--text-primary);
+    background-color: rgba(255,255,255,0.02);
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 30px); }
+}
+
+/* Setting Panel specific */
+#approachPanel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
