@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Recommendation Results - SIREDO{% endblock %}
+{% block title %}Recommendation Results - SPARRING{% endblock %}
 
 {% block content %}
 <!-- Modern Design System & Animate.css -->
@@ -8,14 +8,14 @@
 
 <style>
     :root {
-        --siredo-red: #dc3545;
-        --siredo-red-dark: #a52834;
-        --siredo-bg: #F8FAFC;
-        --siredo-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --sparring-red: #dc3545;
+        --sparring-red-dark: #a52834;
+        --sparring-bg: #F8FAFC;
+        --sparring-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     body {
-        background-color: var(--siredo-bg);
+        background-color: var(--sparring-bg);
         color: #1E293B;
     }
 
@@ -36,7 +36,7 @@
     }
 
     .search-pill:focus {
-        border-color: var(--siredo-red) !important;
+        border-color: var(--sparring-red) !important;
         box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1) !important;
         background: white !important;
     }
@@ -109,7 +109,7 @@
 
     .card-siredo:hover {
         transform: translateY(-4px);
-        box-shadow: var(--siredo-card-shadow);
+        box-shadow: var(--sparring-card-shadow);
     }
 
     .photo-wrapper img {
@@ -145,7 +145,7 @@
     .score-large {
         font-size: 2.2rem;
         font-weight: 800;
-        color: var(--siredo-red);
+        color: var(--sparring-red);
         line-height: 1;
     }
 
@@ -474,7 +474,7 @@
                     statusMessage.style.display = 'none';
                     allResults = d.results;
                     document.getElementById('resultsOverviewRow').style.display = 'flex';
-                    document.getElementById('resultsCountLabel').innerHTML = `Found <span style="color: var(--siredo-red)">${allResults.length}</span> Matching Partners`;
+                    document.getElementById('resultsCountLabel').innerHTML = `Found <span style="color: var(--sparring-red)">${allResults.length}</span> Matching Partners`;
                     process();
                 } else {
                     statusMessage.style.display = 'block'; // Make sure it's visible

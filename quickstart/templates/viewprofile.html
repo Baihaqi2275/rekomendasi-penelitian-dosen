@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ lecturer.name }} - SIREDO-TUS{% endblock %}
+{% block title %}{{ lecturer.name }} - SPARRING{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -129,7 +129,9 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="me-3">
                                 <div class="fw-semibold">{{ publication.title }}</div>
-                                <small class="text-muted">Year: {{ publication.year or '-' }}</small>
+                                {% if publication.year %}
+                                    <small class="text-muted">Year: {{ publication.year }}</small>
+                                {% endif %}
                             </div>
                             {% if publication.linkURL %}
                                 <a class="btn btn-outline-primary btn-sm" href="{{ publication.linkURL }}" target="_blank" rel="noopener noreferrer">

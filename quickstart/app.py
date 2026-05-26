@@ -65,15 +65,64 @@ code_lec_to_dept = dict(
     for _, row in df_lecturer.iterrows()
 )
 
-# Mapping expertise
-df_lecturer['expertise'] = df_lecturer['expertise'].fillna('-')
-code_lec_to_expertise = dict(zip(df_lecturer['code_lec'], df_lecturer['expertise']))
-
 # Ambil keyword dosen
 query = "SELECT * FROM lecturer_keywords"
 df = pd.read_sql(query, engine)
 
 pivot_df = df.pivot_table(index='keyword', columns='code_lec', values='freq', fill_value=0)
+
+
+def clean_optional_text(value):
+    if value is None:
+        return ""
+    text_value = str(value).strip()
+    if text_value.lower() in {"", "-", "none", "nan", "null"}:
+        return ""
+    return text_value
+
+
+def build_keyword_expertise_map(keyword_df, max_keywords=8):
+    """Use lecturer keywords as a readable expertise fallback when the DB field is empty."""
+    if keyword_df.empty:
+        return {}
+
+    sorted_keywords = keyword_df.sort_values(["code_lec", "freq", "keyword"], ascending=[True, False, True])
+    keyword_map = {}
+    for code, group in sorted_keywords.groupby("code_lec"):
+        keywords = []
+        seen = set()
+        for keyword in group["keyword"].dropna():
+            keyword_text = clean_optional_text(keyword).replace("_", " ")
+            if not keyword_text:
+                continue
+            normalized = keyword_text.lower()
+            if normalized in seen:
+                continue
+            seen.add(normalized)
+            keywords.append(keyword_text.title() if len(keyword_text) <= 4 else keyword_text)
+            if len(keywords) >= max_keywords:
+                break
+        if keywords:
+            keyword_map[code] = ", ".join(keywords)
+    return keyword_map
+
+
+keyword_expertise_map = build_keyword_expertise_map(df)
+
+
+def resolve_lecturer_expertise(lecturer_code, raw_expertise=None):
+    expertise = clean_optional_text(raw_expertise)
+    if expertise:
+        return expertise
+    return keyword_expertise_map.get(lecturer_code, "No expertise information available")
+
+
+# Mapping expertise
+df_lecturer['expertise'] = df_lecturer.apply(
+    lambda row: resolve_lecturer_expertise(row['code_lec'], row.get('expertise')),
+    axis=1
+)
+code_lec_to_expertise = dict(zip(df_lecturer['code_lec'], df_lecturer['expertise']))
 
 
 def get_recent_publications(connection, lecturer_name):
@@ -400,7 +449,10 @@ def view_profile(identifier):
             'nidn': lecturer_data.nidn if lecturer_data else None,
             'email': lecturer_data.email if lecturer_data else None,
             'name_dept': lecturer_data.name_dept if lecturer_data else None,
-            'expertise': lecturer_data.expertise if lecturer_data else None
+            'expertise': resolve_lecturer_expertise(
+                lecturer_code,
+                lecturer_data.expertise if lecturer_data else None
+            )
         }
 
         total_publications, publications = get_recent_publications(connection, lecturer_name)
@@ -452,6 +504,7 @@ def lecturers_page():
             d = row._asdict()
             if d.get('name') and '???' in d['name']:
                 d['name'] = d['name'].replace('???', "'")
+            d['expertise'] = resolve_lecturer_expertise(d.get('code_lec'), d.get('expertise'))
             lecturers.append(d)
 
         departments_result = connection.execute(query_departments)
