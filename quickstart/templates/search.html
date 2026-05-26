@@ -6,7 +6,206 @@
 <!-- Modern Design System & Animate.css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+<style>
+    :root {
+        --siredo-red: #dc3545;
+        --siredo-red-dark: #a52834;
+        --siredo-bg: #F8FAFC;
+        --siredo-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
 
+    body {
+        background-color: var(--siredo-bg);
+        color: #1E293B;
+    }
+
+    /* Hero Search Area */
+    .hero-search {
+        background: white;
+        padding: 3rem 0 2rem 0;
+        border-bottom: 1px solid #E2E8F0;
+        margin-bottom: 2rem;
+    }
+
+    .search-pill {
+        border-radius: 50rem !important;
+        background: #F8FAFC !important;
+        border: 2px solid #E2E8F0 !important;
+        padding: 0.8rem 1.5rem !important;
+        transition: all 0.2s ease;
+    }
+
+    .search-pill:focus {
+        border-color: var(--siredo-red) !important;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1) !important;
+        background: white !important;
+    }
+
+    /* Filter Card */
+    .filter-card {
+        background: white;
+        border-radius: 0.75rem;
+        border: 1px solid #E2E8F0;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .filter-card .section-label,
+    .filter-card .form-select-siredo,
+    .filter-card .form-select-siredo option {
+        font-family: var(--bs-body-font-family) !important;
+    }
+
+    .form-select-siredo {
+        border-radius: 0.5rem;
+        border: 1px solid #E2E8F0;
+        padding: 0.6rem 0.8rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #475569;
+    }
+
+    .section-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #64748B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    /* Stats & Engine Badge */
+    .results-stats {
+        margin: 2rem 0 1.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .badge-engine {
+        background: #0F172A;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    /* Siredo Card Components */
+    .card-siredo {
+        background: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+    }
+
+    .card-siredo:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--siredo-card-shadow);
+    }
+
+    .photo-wrapper img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 0.75rem;
+    }
+
+    .top-match-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #10B981;
+        color: white;
+        padding: 0.35rem 0.8rem;
+        border-radius: 0.4rem;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .badge-topic {
+        background: transparent;
+        color: #64748B;
+        border: 1px solid #CBD5E1;
+        font-weight: 600;
+        padding: 0.4rem 0.7rem;
+        border-radius: 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .score-large {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--siredo-red);
+        line-height: 1;
+    }
+
+    .btn-view-profile {
+        background: #F1F5F9;
+        color: #1E293B;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+    }
+
+    .btn-view-profile:hover {
+        background: #E2E8F0;
+        color: #0F172A;
+    }
+
+    .separator {
+        height: 1px;
+        background: #E2E8F0;
+        width: 100%;
+        margin: 1.5rem 0;
+    }
+
+
+    @media (max-width: 768px) {
+        .hero-search {
+            padding: 3rem 0 2rem 0;
+        }
+
+        .card-siredo {
+            border-radius: 1.5rem;
+        }
+    }
+    /* Framer Motion-like animations */
+    @keyframes fadeInScale {
+        0% { opacity: 0; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    
+    .motion-container {
+        animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .icon-circle {
+        width: 120px;
+        height: 120px;
+        background: #F1F5F9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        color: #94A3B8;
+        border: 4px solid white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+</style>
 
 <!-- Hero Search Section -->
 <div class="hero-search">
