@@ -1,5 +1,6 @@
 # Import Library yang dibutuhkan
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix
 import pickle
 import re
 import pandas as pd
@@ -11,6 +12,8 @@ from sqlalchemy import create_engine, text
 import os
 
 app = Flask(__name__)
+# Fix agar Flask bisa berjalan di subpath /sparring/ di CyberPanel
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 # Menerapkan Lemmatizer
 nltk.download('wordnet', quiet=True)
@@ -34,7 +37,13 @@ except Exception as e:
     print("Model belum fit:", e)
 
 # Koneksi database
-engine = create_engine("mysql+pymysql://root:@127.0.0.1/db_siredo?charset=utf8mb4")
+# Gunakan env var DATABASE_URL jika ada (hosting), fallback ke localhost (Laragon)
+_db_url = os.environ.get(
+    "DATABASE_URL",
+    "mysql+pymysql://root:@127.0.0.1/db_siredo?charset=utf8mb4"
+)
+engine = create_engine(_db_url)
+
 
 # Ambil data dosen
 df_lecturer = pd.read_sql(
