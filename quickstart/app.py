@@ -10,6 +10,7 @@ from sklearn.exceptions import NotFittedError
 from sklearn.utils.validation import check_is_fitted
 from sqlalchemy import create_engine, text
 import os
+from urllib.parse import quote_plus
 
 app = Flask(__name__)
 # Fix agar Flask bisa berjalan di subpath /sparring/ di CyberPanel
@@ -35,6 +36,49 @@ try:
     print("Model sudah fit")
 except Exception as e:
     print("Model belum fit:", e)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def load_env_file(file_path):
+    """Load simple KEY=value pairs without requiring extra production packages."""
+    if not os.path.isfile(file_path):
+        return
+
+    with open(file_path, "r", encoding="utf-8") as env_file:
+        for raw_line in env_file:
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+def build_database_url():
+    database_url = os.getenv("SPARRING_DATABASE_URL")
+    if database_url:
+        return database_url
+
+    db_host = os.getenv("SPARRING_DB_HOST", "127.0.0.1")
+    db_port = os.getenv("SPARRING_DB_PORT", "3306")
+    db_name = os.getenv("SPARRING_DB_NAME", "db_siredo")
+    db_user = os.getenv("SPARRING_DB_USER", "root")
+    db_password = os.getenv("SPARRING_DB_PASSWORD", "")
+
+    auth = quote_plus(db_user)
+    if db_password:
+        auth = f"{auth}:{quote_plus(db_password)}"
+
+    return (
+        f"mysql+pymysql://{auth}@{db_host}:{db_port}/"
+        f"{quote_plus(db_name)}?charset=utf8mb4"
+    )
+
+
+load_env_file(os.path.join(BASE_DIR, ".env"))
 
 # Koneksi database
 # Gunakan env var DATABASE_URL jika ada (hosting), fallback ke localhost (Laragon)
