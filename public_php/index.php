@@ -574,7 +574,7 @@ function render_layout(string $title, string $content, string $mode = 'default')
     }
     echo '</head><body class="' . e($homeMode ? 'sparring-home' : 'sparring-inner') . '">';
     echo '<nav class="navbar ' . e($navClass) . '"' . $navStyle . ' data-bs-theme="dark"><div class="container-fluid">';
-    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="https://iebi.rg.telkomuniversity.ac.id" target="_blank">';
+    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="' . e(main_site_url()) . '">';
     echo '<img src="' . e(asset_url('assets/img/logonew.png')) . '" alt="Telkom University logo" class="navbar-logo">';
     echo '<span class="visually-hidden">SPARRING</span></a>';
     echo '<div class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3" style="position:relative;">';
