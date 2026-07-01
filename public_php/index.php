@@ -72,6 +72,11 @@ function asset_url(string $path): string
     return url_for('static/' . ltrim($path, '/'));
 }
 
+function main_site_url(): string
+{
+    return 'https://iebi.rg.telkomuniversity.ac.id/';
+}
+
 function current_path(): string
 {
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
@@ -569,7 +574,7 @@ function render_layout(string $title, string $content, string $mode = 'default')
     }
     echo '</head><body class="' . e($homeMode ? 'sparring-home' : 'sparring-inner') . '">';
     echo '<nav class="navbar ' . e($navClass) . '"' . $navStyle . ' data-bs-theme="dark"><div class="container-fluid">';
-    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="' . e(url_for('/')) . '">';
+    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="' . e(main_site_url()) . '">';
     echo '<img src="' . e(asset_url('assets/img/logonew.png')) . '" alt="Telkom University logo" class="navbar-logo">';
     echo '<span class="visually-hidden">SPARRING</span></a>';
     echo '<div class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3" style="position:relative;">';
