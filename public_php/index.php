@@ -597,6 +597,25 @@ function home_page(): void
 {
     ob_start();
     ?>
+    <style>
+        header.masthead {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-text {
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+        .masthead-search {
+            margin-top: 8rem !important;
+        }
+        @media (max-width: 767.98px) {
+            header.masthead {
+                padding-top: 8rem !important;
+                padding-bottom: 5rem !important;
+            }
+        }
+    </style>
     <header class="masthead">
         <div class="container position-relative">
             <div class="row justify-content-center">
