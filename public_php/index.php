@@ -8,6 +8,49 @@ header('Expires: 0');
 $configFile = __DIR__ . '/config.php';
 $config = is_file($configFile) ? require $configFile : [];
 
+function load_sparring_env(string $file): array
+{
+    if (!is_file($file) || !is_readable($file)) {
+        return [];
+    }
+
+    $values = [];
+    foreach (file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [] as $line) {
+        $line = trim($line);
+        if ($line === '' || strpos($line, '#') === 0 || strpos($line, '=') === false) {
+            continue;
+        }
+
+        [$key, $value] = explode('=', $line, 2);
+        $values[trim($key)] = trim(trim($value), "\"'");
+    }
+
+    return $values;
+}
+
+function sparring_env_database_config(): array
+{
+    $env = load_sparring_env(__DIR__ . '/quickstart/.env');
+    $mapping = [
+        'SPARRING_DB_HOST' => 'db_host',
+        'SPARRING_DB_PORT' => 'db_port',
+        'SPARRING_DB_NAME' => 'db_name',
+        'SPARRING_DB_USER' => 'db_user',
+        'SPARRING_DB_PASSWORD' => 'db_pass',
+    ];
+
+    $databaseConfig = [];
+    foreach ($mapping as $envKey => $configKey) {
+        if (isset($env[$envKey]) && $env[$envKey] !== '') {
+            $databaseConfig[$configKey] = $configKey === 'db_port' ? (int) $env[$envKey] : $env[$envKey];
+        }
+    }
+
+    return $databaseConfig;
+}
+
+$config = array_replace($config, sparring_env_database_config());
+
 function e($value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -27,6 +70,11 @@ function url_for(string $path = ''): string
 function asset_url(string $path): string
 {
     return url_for('static/' . ltrim($path, '/'));
+}
+
+function main_site_url(): string
+{
+    return 'https://iebi.rg.telkomuniversity.ac.id/';
 }
 
 function current_path(): string
