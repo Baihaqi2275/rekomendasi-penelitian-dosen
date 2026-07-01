@@ -343,8 +343,8 @@ function render_layout(string $title, string $content, string $mode = 'default')
     $homeMode = $mode === 'home';
     $navClass = $homeMode ? 'navbar-dark bg-transparent position-absolute w-100 z-3' : 'fixed-top';
     $navStyle = $homeMode ? ' style="top:0;left:0;"' : '';
-    $buttonClass = $homeMode ? 'btn-transparent' : 'btn-primary';
-    $buttonStyle = '';
+    $buttonClass = $homeMode ? 'btn-transparent' : '';
+    $buttonStyle = $homeMode ? '' : 'background-color:#1c4c54;border-color:#1c4c54;';
 
     echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">';
     echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
@@ -355,7 +355,7 @@ function render_layout(string $title, string $content, string $mode = 'default')
     echo '<link href="' . e(asset_url('css/styles.css')) . '" rel="stylesheet">';
     echo '<link href="' . e(asset_url('css/lecturer.css')) . '" rel="stylesheet">';
     echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">';
-    echo '<link href="' . e(asset_url('css/premium.css')) . '" rel="stylesheet">';
+
     if (!$homeMode) {
         echo '<style>
             body.sparring-inner {
@@ -526,7 +526,7 @@ function render_layout(string $title, string $content, string $mode = 'default')
     }
     echo '</head><body class="' . e($homeMode ? 'sparring-home' : 'sparring-inner') . '">';
     echo '<nav class="navbar ' . e($navClass) . '"' . $navStyle . ' data-bs-theme="dark"><div class="container-fluid">';
-    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="' . e(url_for('/')) . '">';
+    echo '<a class="navbar-brand d-flex align-items-center gap-2" href="https://iebi.rg.telkomuniversity.ac.id" target="_blank">';
     echo '<img src="' . e(asset_url('assets/img/logonew.png')) . '" alt="Telkom University logo" class="navbar-logo">';
     echo '<span class="visually-hidden">SPARRING</span></a>';
     echo '<div class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3" style="position:relative;">';
