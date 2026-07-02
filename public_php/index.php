@@ -610,13 +610,13 @@ function home_page(): void
             overflow: hidden;
         }
         header.masthead::before {
-            animation: sparringHeroDrift 26s ease-in-out infinite alternate;
+            animation: sparringHeroDrift 16s ease-in-out infinite;
             background: url("<?= e(asset_url('assets/img/bg.masthead.webp')) ?>") center center / cover no-repeat;
             content: "";
             inset: -4%;
             opacity: 1;
             position: absolute;
-            transform: scale(1.04) translate3d(-1.5%, -1%, 0);
+            transform: translate3d(-2.5%, 0, 0);
             width: auto;
             height: auto;
             z-index: 0;
@@ -640,19 +640,19 @@ function home_page(): void
         }
         @keyframes sparringHeroDrift {
             0% {
-                transform: scale(1.04) translate3d(-1.5%, -1%, 0);
+                transform: translate3d(-2.5%, 0, 0);
             }
             50% {
-                transform: scale(1.09) translate3d(1.5%, 1%, 0);
+                transform: translate3d(2.5%, 0, 0);
             }
             100% {
-                transform: scale(1.06) translate3d(-0.5%, 1.5%, 0);
+                transform: translate3d(-2.5%, 0, 0);
             }
         }
         @media (prefers-reduced-motion: reduce) {
             header.masthead::before {
                 animation: none;
-                transform: scale(1.05);
+                transform: translate3d(0, 0, 0);
             }
         }
         @media (max-width: 767.98px) {
